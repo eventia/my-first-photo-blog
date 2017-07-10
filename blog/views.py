@@ -9,6 +9,7 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    # message = ('{url}'.format(url=post.image.url),)
     return render(request, 'blog/post_detail.html', {'post':post})
 
 def post_new(request):
@@ -17,6 +18,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+#            post.image 
             post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
